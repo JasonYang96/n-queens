@@ -45,7 +45,7 @@
 	(let ((spot (add-queen L N 0 row)))
 		(cond ((> row N) nil)
 			  ((NULL spot) nil)
-			  (t (append L (list spot)))
+			  (t (add-queens (append L (list spot)) N (+ 1 row)))
 		)
 	)
 )
