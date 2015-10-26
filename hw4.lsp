@@ -4,9 +4,9 @@
 ;
 ; returns t if there exists a conflict, nil otherwise
 ;
-(defun find-conflicts (L index values) 
-	(let ((found (nthcdr index L))) 
-		((find found values) t)
+(defun find-conflicts (L index values)
+	(cond ((> (count (nthcdr index L) values) 0) t)
+		  (t nil)
 	)
 )
 
