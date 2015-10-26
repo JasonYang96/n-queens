@@ -60,29 +60,29 @@
 )
 
 ;
-; add-queen (L N spot col)
-; finds a col from 1 to N where a queen can be added
+; generate-states (L)
+; generates valid next states given a list L
 ;
-; returns index of valid spot, or nil otherwise
+; returns a list of valid states
 ;
-(defun add-queen (L N spot col) 
-	(cond ((> spot N) nil)
-		  ((check-spot L N spot col) spot)
-		  (t (add-queen L N (+ spot 1)))
-	)
+(defun generate-states (L N index)
+	(cond ((>= index N) nil)
+		  (t (let* ((state (cons index L))
+					(invalid (check-invalid state)))
+				(cond (invalid (generate-states L N (+ 1 index)))
+					  (t (cons state (generate-states L N (+ 1 index))))
+				)
+			 )
+		 )
+    )
 )
 
 ;
-; add-queens (L N row)
-; incrementally adds queens from rows 0 to N - 1
 ;
-; returns
-;
-(defun add-queens (L N row)
-	(let ((spot (add-queen L N 0 row)))
-		(cond ((> row N) nil)
-			  ((NULL spot) nil)
-			  (t (add-queens (append L (list spot)) N (+ 1 row)))
+(defun dfs (L N)
+	(let ((states (generate-states nil N 0)))
+		(cond ((NULL states) nil)
+
 		)
 	)
 )
@@ -90,9 +90,8 @@
 ;
 ;
 (defun QUEENS (N)
-	(let ((board (add-queens nil N 0)))
-		(cond ((= (length board) N) board)
-			  (t nil)
-		)
+	(cond ((= N 1) '(0))
+		  ((or (= N 2) (= N 3)) nil)
+		  (t ())
 	)
 )
