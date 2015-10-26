@@ -1,4 +1,16 @@
 ;
+; find-conflicts (L N index values)
+; checks if any values are at index of L
+;
+; returns t if there exists a conflict, nil otherwise
+;
+(defun find-conflicts (L index values) 
+	(let ((found (nthcdr index L))) 
+		((find found values) t)
+	)
+)
+
+;
 ; check-spot (L N spot col)
 ; checks if queen can go into spot in L
 ;
