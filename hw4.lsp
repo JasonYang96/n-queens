@@ -5,10 +5,7 @@
 ; returns t if duplicate, nil otherwise
 ;
 (defun check-same-col (L value)
-	(cond ((NULL L) nil)
-		  ((= (first L) value) t)
-		  (t (check-same-col (rest L) value))
-	)
+	(>= (count value L) 1)
 )
 
 ;
@@ -53,12 +50,7 @@
 ; returns t if invalid, nil otherwise
 ;
 (defun check-invalid (L value)
-	(let* ((sums (sum-coords (create-coordinates L 1)))
-		   (diff (sub-coords (create-coordinates L 1)))
-		   (coord-sum (+ (+ (length L) 1) value))
-		   (coord-diff (- (+ (length L) 1) value)))
-		(or (check-same-col L value) (check-same-col sums coord-sum) (check-same-col diff coord-diff))
-	)
+	(or (check-same-col L value) (check-same-col (sum-coords (create-coordinates L 2)) (+ 1 value)) (check-same-col (sub-coords (create-coordinates L 2)) (- 1 value)))
 )
 
 ;
