@@ -66,7 +66,7 @@
 ; returns a list of valid states
 ;
 (defun generate-states (L N index)
-	(cond ((>= index N) nil)
+	(cond ((>= index (+ N 1)) nil)
 		  (t (let* ((state (cons index L))
 					(invalid (check-invalid state)))
 				(cond (invalid (generate-states L N (+ 1 index)))
@@ -80,18 +80,22 @@
 ;
 ;
 (defun dfs (L N)
-	(let ((states (generate-states nil N 0)))
-		(cond ((NULL states) nil)
-
-		)
+	(cond ((or (NULL (first L)) (NULL L)) nil)
+		  ((= (LENGTH (first L)) N) L)
+		  (t (let ((states (generate-states (first L) N 1)))
+				(cond ((dfs states N))
+					  (t (dfs (rest L) N))
+				)
+			 )
+		  )
 	)
 )
 
 ;
 ;
 (defun QUEENS (N)
-	(cond ((= N 1) '(0))
+	(cond ((= N 1) '(1))
 		  ((or (= N 2) (= N 3)) nil)
-		  (t ())
+		  (t (first (dfs (generate-states nil N 1) N)))
 	)
 )
