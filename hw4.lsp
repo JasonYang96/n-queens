@@ -4,10 +4,10 @@
 ;
 ; returns t if duplicate, nil otherwise
 ;
-(defun check-same-col (L)
-	(cond ((= (length L) 1) nil)
-		  ((> (count (first L) L) 1) t)
-		  (t (check-same-col (rest L)))
+(defun check-same-col (L value)
+	(cond ((NULL L) nil)
+		  ((= (first L) value) t)
+		  (t (check-same-col (rest L) value))
 	)
 )
 
@@ -80,7 +80,7 @@
 ;
 ;
 (defun dfs (L N)
-	(cond ((or (NULL (first L)) (NULL L)) nil)
+	(cond ((NULL (first L)) nil)
 		  ((= (LENGTH (first L)) N) L)
 		  (t (let ((states (generate-states (first L) N 1)))
 				(cond ((dfs states N))
