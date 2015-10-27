@@ -52,10 +52,12 @@
 ;
 ; returns t if invalid, nil otherwise
 ;
-(defun check-invalid (L)
-	(let* ((sums (sum-coords (create-coordinates L 0)))
-		   (diff (sub-coords (create-coordinates L 0))))
-		(or (check-same-col L) (check-same-col sums) (check-same-col diff))
+(defun check-invalid (L value)
+	(let* ((sums (sum-coords (create-coordinates L 1)))
+		   (diff (sub-coords (create-coordinates L 1)))
+		   (coord-sum (+ (+ (length L) 1) value))
+		   (coord-diff (- (+ (length L) 1) value)))
+		(or (check-same-col L value) (check-same-col sums coord-sum) (check-same-col diff coord-diff))
 	)
 )
 
@@ -68,7 +70,7 @@
 (defun generate-states (L N index)
 	(cond ((>= index (+ N 1)) nil)
 		  (t (let* ((state (cons index L))
-					(invalid (check-invalid state)))
+					(invalid (check-invalid L index)))
 				(cond (invalid (generate-states L N (+ 1 index)))
 					  (t (cons state (generate-states L N (+ 1 index))))
 				)
