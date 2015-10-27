@@ -50,7 +50,10 @@
 ; returns t if invalid, nil otherwise
 ;
 (defun check-invalid (L value)
-	(or (check-same-col L value) (check-same-col (sum-coords (create-coordinates L 2)) (+ 1 value)) (check-same-col (sub-coords (create-coordinates L 2)) (- 1 value)))
+	(or (check-same-col L value)
+		(check-same-col (sum-coords (create-coordinates L 2)) (+ 1 value))
+		(check-same-col (sub-coords (create-coordinates L 2)) (- 1 value))
+	)
 )
 
 ;
